@@ -3,6 +3,8 @@
 <?php include "includes/header.php" ?>
 
 <div class="container">
+  <h2>Manage Accounts</h2>
+  <?php deleteAccount() ?>
   <?php showAdminData() ?>
 </div>
 

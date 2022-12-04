@@ -118,7 +118,6 @@ function showAdminData()
     $id = $row["id"];
 ?>
     <pre><?php print_r($row); ?></pre>
-    <?php deleteAccount() ?>
     <form class="mb-3" action="login_delete.php" method="post">
       <?php echo "<input type='hidden' value='$id' name='id' />" ?>
       <input name="submit" class="btn btn-danger" type="submit" value="Delete">
