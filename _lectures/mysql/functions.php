@@ -21,9 +21,24 @@ function findAll()
 function createAccount()
 {
   if (isset($_POST["submit"])) {
+    global $connection;
     # extract data
     $username = $_POST["username"];
     $password = $_POST["password"];
+
+    # Sanitize data
+    $username = mysqli_real_escape_string($connection, $username);
+    $password = mysqli_real_escape_string($connection, $password);
+
+
+    # Encrypt password
+    $hashFormat = "$2y$10$";
+    $salt = "thefridaygrindbeginlay";
+
+    $hashF_and_salt = $hashFormat . $salt;
+
+    $password = crypt($password, $hashF_and_salt);
+
 
     # validate data
     // if ($username && $password) {
@@ -33,7 +48,7 @@ function createAccount()
     //   echo "Username or password cannot be empty.";
     // }
 
-    global $connection;
+
 
     $query = "INSERT INTO users(username, password) ";
     $query .= "VALUES('$username', '$password')";
@@ -56,6 +71,20 @@ function updateAccount()
     $username = $_POST["username"];
     $password = $_POST["password"];
     $id = $_POST["id"];
+
+    # Sanitize data
+    $username = mysqli_real_escape_string($connection, $username);
+    $password = mysqli_real_escape_string($connection, $password);
+    $id = mysqli_real_escape_string($connection, $id);
+
+    # Encrypt password
+    $hashFormat = "$2y$10$";
+    $salt = "thefridaygrindbeginlay";
+
+    $hashF_and_salt = $hashFormat . $salt;
+
+    $password = crypt($password, $hashF_and_salt);
+
     $query = "UPDATE users SET ";
     $query .= "username = '$username', ";
     $query .= "password = '$password' ";
